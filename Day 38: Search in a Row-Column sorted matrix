@@ -1,0 +1,33 @@
+
+class Solution {
+    public static boolean matSearch(int mat[][], int x) {
+        // your code here
+        int m = mat.length;
+        int n = mat[0].length;
+        
+        int row = 0 , col = n -1 ;
+        
+        while( row < m && col >= 0 ){
+            
+            if( mat[row][col] == x){
+                return true;
+            }else if(x < mat[row][col]){
+                col--;
+            }
+            else row++;
+        }
+        // while( low <= high ){
+        //      int mid = (low + high) / 2;
+        //     int row = mid / n;
+        //     int col = mid % n;
+        //     if(mat[row][col] == x){
+        //         return true;
+        //     }else if(x < mat[row][col]){
+        //         high = mid - 1;
+        //     }else{
+        //         low = mid + 1;
+        //     }
+        // }
+        return false;
+    }
+}
