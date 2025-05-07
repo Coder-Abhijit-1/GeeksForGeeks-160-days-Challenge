@@ -1,0 +1,41 @@
+class Solution {
+    boolean twoSum(int arr[], int target) {
+        
+        // Using two pointers after sorting O(n) + O(nLogn)
+        Arrays.sort(arr);
+        int left = 0 , right = arr.length - 1;
+        while( left < right){
+            if(arr[left] + arr[right] == target){
+                return true;
+            }else if( arr[left] + arr[right] > target){
+                right--;
+            }else{
+                left++;     
+            }
+        }
+        return false;
+        
+        // Using HashMap O(n)
+        // HashSet <Integer> set = new HashSet<>();
+        // for (int num : arr){
+        //     int val = target - num;
+        //     if (set.contains(val)){
+        //         return true;
+        //     }
+        //     set.add(num);
+        // }
+        // return false;
+        
+        // Brute Force Approach O(n^2)
+        // int len = arr.length, i = 0;
+        // while( i < len){
+        //     int val = target - arr[i];
+        //     for ( int j = 1 ; j < len ; j++){
+        //         if( arr[j] == val) return true;
+        //     }
+        //     i++;
+        // }
+        // return false;
+        
+    }
+}
