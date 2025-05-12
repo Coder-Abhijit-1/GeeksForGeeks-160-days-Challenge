@@ -1,0 +1,44 @@
+class Solution {
+    public ArrayList<ArrayList<String>> anagrams(String[] arr) {
+        // code here
+        ArrayList<ArrayList<String>> result = new ArrayList<>();
+        if(arr == null || arr.length == 0) return result;
+        
+        Map<String , List<String>> fsm = new HashMap<>();
+        for( String str : arr){
+            
+            String fs = getFrequencyString(str);
+            
+            if(fsm.containsKey(fs)){
+                fsm.get(fs).add(str);
+            }else{
+                List<String> strList = new ArrayList<>();
+                strList.add(str);
+                fsm.put(fs , strList);
+            }
+        }
+        for (List<String> group : fsm.values()){
+            result.add(new ArrayList<>(group));
+        }
+        
+        return result;
+    }
+    
+    private String getFrequencyString( String str){
+        
+        int[] freq = new int[26];
+        
+        for(char c :str.toCharArray()){
+            freq[c - 'a']++;
+        }
+        
+        StringBuilder fs = new StringBuilder("");
+        char c = 'a';
+        for( int i : freq){
+            fs.append(c);
+            fs.append(i);
+            c++;
+        }
+        return fs.toString();
+    }
+}
