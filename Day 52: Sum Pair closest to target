@@ -1,0 +1,29 @@
+
+class Solution {
+    public List<Integer> sumClosest(int[] arr, int target) {
+        
+        if(arr == null || arr.length < 2){
+            return new ArrayList<>();
+        }
+        Arrays.sort(arr);
+        int low = 0 ,high = arr.length - 1;
+        int diff = Integer.MAX_VALUE;
+        int idx1 = 0, idx2 = 0;
+        
+        while( low < high){
+            int sum = arr[low] + arr[high];
+            
+            if(Math.abs(target-sum) < diff){
+                diff = Math.abs(target-sum);
+                idx1 = arr[low];
+                idx2 = arr[high];
+            }else if(sum < target){
+                low++;
+            }else{
+                high--;
+            }
+        }
+        return Arrays.asList(idx1 , idx2);
+        
+    }
+}
