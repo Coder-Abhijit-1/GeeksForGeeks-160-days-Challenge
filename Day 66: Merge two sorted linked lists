@@ -1,0 +1,30 @@
+
+class Solution {
+    Node sortedMerge(Node head1, Node head2) {
+        
+        Node returnNode = new Node(Integer.MIN_VALUE);
+        
+        Node headNode = returnNode;
+        Node dh1 = head1;
+        Node dh2 = head2;
+        
+        while(dh1 != null && dh2 != null){
+            if(dh1.data <= dh2.data){
+                returnNode.next = new Node(dh1.data);
+                dh1 = dh1.next;
+            }else{
+                returnNode.next = new Node(dh2.data);
+                dh2 = dh2.next;
+            }
+            returnNode = returnNode.next;
+        }
+        
+        if(dh1 == null ){
+            returnNode.next = dh2;
+        }else if(dh2 == null){
+            returnNode.next = dh1;
+        }
+        
+        return headNode.next;
+    }
+}
