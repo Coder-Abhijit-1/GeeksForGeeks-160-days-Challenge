@@ -1,0 +1,34 @@
+class Solution {
+    public static Node findFirstNode(Node head) {
+        
+        
+        Node slow = head;
+        Node fast = head;
+        
+        while( fast != null && fast.next != null ){
+            slow = slow.next;
+            fast = fast.next.next;
+            if(slow == fast){
+                slow = head;
+                while(slow != fast){
+                    slow = slow.next ;
+                    fast = fast.next;
+                }
+                return slow;
+            }
+        }
+        return null; 
+        // HashMap<Node, Boolean> map = new HashMap<>();
+        //  Node temp = head;
+        
+        // while( temp != null){
+        //     if(map.containsKey(temp.data)){
+        //         return temp;
+        //     }else{
+        //         map.put(temp,true);
+        //         temp = temp.next;
+        //     }
+        // }
+        // return null;
+    }
+}
