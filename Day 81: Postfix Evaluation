@@ -1,0 +1,30 @@
+class Solution {
+    public int evaluate(String[] arr) {
+        
+        Stack<Integer> st = new Stack<>();
+        
+        for( String i : arr){
+            if(isOperator(i)){
+                int b = st.pop();
+                int a = st.pop();
+                int res = applyOperator(a,b,i);
+                st.push(res);
+            }else{
+                st.push(Integer.parseInt(i));
+            }
+        }
+        return st.pop();
+    }
+    private boolean isOperator(String s){
+        return s.equals("+") || s.equals("*") || s.equals("-") || s.equals("/") ;
+    }
+    private int applyOperator(int a , int b , String op){
+        switch(op){
+            case "+" : return a+b;
+            case "-" : return a-b;
+            case "*" : return a*b;
+            case "/" : return a/b;
+            default : throw new IllegalArgumentException("Invalid operator: "+op);
+        }
+    }
+}
