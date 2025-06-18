@@ -1,0 +1,20 @@
+class Solution {
+    double power(double b, int e) {
+        if( e == 0 ) return 1;
+        
+        if( e < 0){
+             b = 1/b;
+             e = -e;
+        }
+        return pow(b , e);
+    }
+    private double pow(double b , int e){
+        if(e == 0 ) return 1;
+        double half = pow(b , e/2);
+        if(e % 2 ==0){
+            return half * half;
+        }else{
+            return b * half  * half;
+        }
+    }
+}
