@@ -1,0 +1,34 @@
+class Solution {
+    public ArrayList<ArrayList<Integer>> nQueen(int n) {
+        ArrayList<ArrayList<Integer>> res = new ArrayList<>();
+        backtrack( n , 0 , new ArrayList<>() , new HashSet<>() , new HashSet<>() , new HashSet<>() , res);
+        
+        return res;
+    }
+    
+    private void backtrack(int n , int col , ArrayList<Integer> current , HashSet<Integer> rows , HashSet<Integer> d1 , HashSet<Integer> d2 , ArrayList<ArrayList<Integer>> res){
+        if( col == n ){
+            res.add(new ArrayList<>(current));
+            return ;
+        }
+        for( int row = 1; row <= n ; row++ ){
+            int diag1 = row -col;
+            int diag2 = row+col;
+            
+            if(rows.contains(row) || d1.contains(diag1) || d2.contains(diag2))
+                continue;
+                
+            current.add(row);
+            rows.add(row);
+            d1.add(diag1);
+            d2.add(diag2);
+            
+            backtrack(n , col + 1, current , rows , d1, d2 , res);
+            
+            current.remove(current.size() - 1);
+             rows.remove(row);
+            d1.remove(diag1);
+            d2.remove(diag2);
+        }
+    }
+}
