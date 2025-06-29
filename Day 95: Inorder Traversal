@@ -1,0 +1,28 @@
+/* A Binary Tree node
+
+class Node {
+    int data;
+    Node left, right;
+   Node(int item)    {
+        data = item;
+        left = right = null;
+    }
+}
+*/
+class Solution {
+    // Function to return a list containing the inorder traversal of the tree.
+    ArrayList<Integer> res = new ArrayList<>();
+    
+    ArrayList<Integer> inOrder(Node root) {
+        travIO(root);
+        return res;
+    }
+    private void travIO(Node root){
+        
+        if( root == null) return ;
+        
+        travIO(root.left);
+        res.add(root.data);
+        travIO(root.right);
+    }
+}
