@@ -1,0 +1,40 @@
+/*
+class Node {
+    int data;
+    Node left;
+    Node right;
+
+    Node(int data) {
+        this.data = data;
+        left = null;
+        right = null;
+    }
+}
+*/
+
+class Solution {
+    public int sumK(Node root, int k) {
+        Map <Integer,Integer> map = new HashMap<>();
+        int[] count = new int[1];
+        solve(root , k , 0 , count , map);
+        return count[0];
+    }
+    private void solve( Node node , int k , int currSum , int[] count , Map<Integer , Integer> map){
+        if( node == null) return ;
+        
+        currSum += node.data;
+        
+        if(currSum == k ) count[0]++;
+        
+        if(map.containsKey(currSum-k)){
+            count[0] += map.get(currSum - k);
+        }
+        
+        map.put(currSum , map.getOrDefault(currSum , 0) + 1);
+        
+        solve(node.left , k , currSum , count , map);
+        solve(node.right , k , currSum , count , map);
+        
+        map.put(currSum , map.get(currSum) - 1);
+    }
+}
