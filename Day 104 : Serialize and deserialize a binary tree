@@ -1,0 +1,52 @@
+/*Complete the given function
+Node is as follows:
+class Node {
+    int data;
+    Node left;
+    Node right;
+
+    Node(int data) {
+        this.data = data;
+        left = null;
+        right = null;
+    }
+}*/
+
+class Tree {
+    // Function to serialize a tree and return a list containing nodes of tree.
+    int index = 0 ;
+    public ArrayList<Integer> serialize(Node root) {
+        ArrayList<Integer> list = new ArrayList<>();
+        serializerHelper(root , list);
+        return list;
+    }
+    private void serializerHelper(Node root , ArrayList<Integer> list){
+        if( root == null){
+             list.add(-1);
+             return ;
+        }
+        list.add(root.data);
+        serializerHelper(root.left , list);
+        serializerHelper(root.right , list);
+    }
+
+    // Function to deserialize a list and construct the tree.
+    public Node deSerialize(ArrayList<Integer> arr) {
+        index = 0 ;
+        return deserializeHelper(arr);
+    }
+    
+    private Node deserializeHelper(ArrayList<Integer> list){
+        if( index == list.size()) return null;
+        
+        int val = list.get(index);
+        index++;
+        
+        if( val  == -1) return null;
+        
+        Node root = new Node(val);
+        root.left = deserializeHelper(list);
+        root.right = deserializeHelper(list);
+        return root;
+    }
+};
