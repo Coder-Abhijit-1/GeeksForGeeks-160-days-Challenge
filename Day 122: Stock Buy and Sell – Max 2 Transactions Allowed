@@ -1,0 +1,26 @@
+class Solution {
+    public static int maxProfit(int[] prices) {
+        int n = prices.length;
+        if (n == 0) return 0;
+
+        // profit[i] stores max profit with 1 transaction from day 0 to i
+        int[] profit = new int[n];
+
+        // 1st pass: Max profit from right to left (single transaction from i to end)
+        int maxPrice = prices[n - 1];
+        for (int i = n - 2; i >= 0; i--) {
+            maxPrice = Math.max(maxPrice, prices[i]);
+            profit[i] = Math.max(profit[i + 1], maxPrice - prices[i]);
+        }
+
+        // 2nd pass: Max profit with 2 transactions (left + right)
+        int minPrice = prices[0];
+        for (int i = 1; i < n; i++) {
+            minPrice = Math.min(minPrice, prices[i]);
+            // combine profit from left transaction and right (already stored)
+            profit[i] = Math.max(profit[i - 1], profit[i] + (prices[i] - minPrice));
+        }
+
+        return profit[n - 1];
+    }
+}
