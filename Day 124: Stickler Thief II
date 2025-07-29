@@ -1,165 +1,32 @@
-034class Solution (
+class Solution {
+    int maxValue(int[] arr) {
+        int n = arr.length;
+        if (n == 0) return 0;
+        if (n == 1) return arr[0];
+        if (n == 2) return Math.max(arr[0], arr[1]);
 
-2-
+        // Case 1: exclude last house
+        int case1 = robLinear(arr, 0, n - 2);
 
-X
+        // Case 2: exclude first house
+        int case2 = robLinear(arr, 1, n - 1);
 
-int maxValue(int[] arr) {
+        return Math.max(case1, case2);
+    }
 
-3
+    // Standard House Robber DP for linear array
+    private int robLinear(int[] arr, int start, int end) {
+        int prev2 = 0;
+        int prev1 = 0;
+        
+        for (int i = start; i <= end; i++) {
+            int include = arr[i] + prev2;
+            int exclude = prev1;
+            int curr = Math.max(include, exclude);
+            prev2 = prev1;
+            prev1 = curr;
+        }
 
-int n arr.length;
-
-4
-
-if (ne) return 0;
-
-5
-
-if (n=1) return arr[0]; if (n 2) return Math.max(arr[8], arr[1]);
-
-1678
-
-// Case 1: exclude last house
-
-int casel robLinear(arr, 0, 2);
-
-// Case 2: exclude first house.
-
-int case2 robLinear(arr, 1, 1);
-
-13
-
-return Math.max(casel, case2);
-
-15
-
-// Standard House Robber DP for linear array
-
-private int roblinear (int[] arr, int start, int end) {
-
-int prev20;
-
-int prev1 0;
-
-for (int i start; i < end; i++) (
-
-int include arr[i] prev2;
-
-int exclude prev1;
-
-int curr Math.max(include, exclude);
-
-20
-
-21
-
-22-
-
-23
-
-24
-
-25
-
-26
-
-prev2 prev1;
-
-27
-
-prev1 curr;
-
+        return prev1;
+    }
 }
-
-29
-
-30
-
-return prev1;
-
-TE
-
-32class Solution (
-
-2-
-
-X
-
-int maxValue(int[] arr) {
-
-3
-
-int n arr.length;
-
-4
-
-if (ne) return 0;
-
-5
-
-if (n=1) return arr[0]; if (n 2) return Math.max(arr[8], arr[1]);
-
-1678
-
-// Case 1: exclude last house
-
-int casel robLinear(arr, 0, 2);
-
-// Case 2: exclude first house.
-
-int case2 robLinear(arr, 1, 1);
-
-13
-
-return Math.max(casel, case2);
-
-15
-
-// Standard House Robber DP for linear array
-
-private int roblinear (int[] arr, int start, int end) {
-
-int prev20;
-
-int prev1 0;
-
-for (int i start; i < end; i++) (
-
-int include arr[i] prev2;
-
-int exclude prev1;
-
-int curr Math.max(include, exclude);
-
-20
-
-21
-
-22-
-
-23
-
-24
-
-25
-
-26
-
-prev2 prev1;
-
-27
-
-prev1 curr;
-
-}
-
-29
-
-30
-
-return prev1;
-
-TE
-
-32
