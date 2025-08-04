@@ -1,0 +1,36 @@
+import java.util.*;
+
+class Solution {
+    // Node class is already defined
+    // Node { int data; Node next; }
+
+    Node mergeKLists(List<Node> arr) {
+        // Create a min-heap using PriorityQueue
+        PriorityQueue<Node> minHeap = new PriorityQueue<>(arr.size(), (a, b) -> a.data - b.data);
+
+        // Add the head of each linked list to the heap
+        for (Node node : arr) {
+            if (node != null) {
+                minHeap.offer(node);
+            }
+        }
+
+        // Dummy head to build the merged list
+        Node dummy = new Node(0);
+        Node current = dummy;
+
+        // Extract the smallest node and push its next to the heap
+        while (!minHeap.isEmpty()) {
+            Node minNode = minHeap.poll();
+            current.next = minNode;
+            current = current.next;
+
+            if (minNode.next != null) {
+                minHeap.offer(minNode.next);
+            }
+        }
+
+        // Return the head of the merged list
+        return dummy.next;
+    }
+}
