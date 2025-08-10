@@ -1,0 +1,25 @@
+class Solution {
+    public int maxPartitions(String s) {
+        int n = s.length();
+        int[] lastIndex = new int[26];
+
+        // Step 1: Record last occurrence for each char
+        for (int i = 0; i < n; i++) {
+            lastIndex[s.charAt(i) - 'a'] = i;
+        }
+
+        int partitions = 0;
+        int maxLast = 0;
+
+        // Step 2: Traverse and decide cuts
+        for (int i = 0; i < n; i++) {
+            maxLast = Math.max(maxLast, lastIndex[s.charAt(i) - 'a']);
+
+            if (i == maxLast) { 
+                partitions++;
+            }
+        }
+
+        return partitions;
+    }
+}
