@@ -1,0 +1,58 @@
+import java.util.*;
+
+class Solution {
+    public int findMinCycle(int V, int[][] edges) {
+        // Build adjacency list
+        List<List<int[]>> adj = new ArrayList<>();
+        for (int i = 0; i < V; i++) adj.add(new ArrayList<>());
+        
+        for (int[] e : edges) {
+            adj.get(e[0]).add(new int[]{e[1], e[2]});
+            adj.get(e[1]).add(new int[]{e[0], e[2]});
+        }
+        
+        int minCycle = Integer.MAX_VALUE;
+        
+        // For each edge, remove it and run Dijkstra
+        for (int[] e : edges) {
+            int u = e[0], v = e[1], w = e[2];
+            
+            // Run Dijkstra from u to v without using edge (u,v)
+            int shortest = dijkstra(V, adj, u, v, u, v);
+            if (shortest != Integer.MAX_VALUE) {
+                minCycle = Math.min(minCycle, shortest + w);
+            }
+        }
+        
+        return (minCycle == Integer.MAX_VALUE) ? -1 : minCycle;
+    }
+    
+    private int dijkstra(int V, List<List<int[]>> adj, int src, int target, int skipU, int skipV) {
+        int[] dist = new int[V];
+        Arrays.fill(dist, Integer.MAX_VALUE);
+        dist[src] = 0;
+        
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> a[1] - b[1]);
+        pq.offer(new int[]{src, 0});
+        
+        while (!pq.isEmpty()) {
+            int[] cur = pq.poll();
+            int node = cur[0], d = cur[1];
+            
+            if (d > dist[node]) continue;
+            
+            for (int[] edge : adj.get(node)) {
+                int nei = edge[0], w = edge[1];
+                
+                // Skip the given edge (u,v)
+                if ((node == skipU && nei == skipV) || (node == skipV && nei == skipU)) continue;
+                
+                if (dist[node] + w < dist[nei]) {
+                    dist[nei] = dist[node] + w;
+                    pq.offer(new int[]{nei, dist[nei]});
+                }
+            }
+        }
+        return dist[target];
+    }
+}
