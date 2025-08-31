@@ -1,0 +1,26 @@
+class Solution {
+    int missingNum(int arr[]) {
+        // Using XOR 
+        int n = arr.length + 1;
+        int xorNum = 0 ;
+        int xorArr = 0 ;
+        
+        for( int i = 1 ; i <= n ; i++){
+            xorNum ^= i;
+        }
+        for( int num : arr){
+            xorArr ^= num;
+        }
+        return xorArr ^ xorNum ;
+        
+        
+        // Using sum approach
+        int n = arr.length + 1; 
+        int total = n * (n + 1) / 2;
+        int sum = 0;
+        for (int num : arr) {
+            sum += num;
+        }
+        return total - sum;
+    }
+}
