@@ -1,0 +1,36 @@
+class Solution {
+    public int findUnique(int[] arr) {
+        
+        //Using sorting O(n log n), O(1) extra space if in-place
+        Arrays.sort(arr);
+        for (int i = 0; i < arr.length - 1; i += 2) {
+            if (arr[i] != arr[i + 1]) {
+                return arr[i];
+            }
+        }
+        return arr[arr.length - 1];  
+        
+        
+        //Using Hashmap O(n), O(n) space
+        HashMap<Integer ,Integer> map = new HashMap<>();
+        for( int num : arr){
+            map.put(num,map.getOrDefault(num,0)+1)
+        }
+        for( int key : map.keySet()){
+            if(map.get(key) == 1){
+                return key;
+            }
+        }
+        return -1;
+        
+        
+        
+        // Using Xor operation O(n), O(1) space
+        int n = arr.length ;
+        int xor = 0 ;
+        for( int num : arr){
+            xor ^= num;
+        }
+        return xor ;
+    }
+}
